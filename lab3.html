@@ -18,6 +18,8 @@
 		 <script src="https://unpkg.com/leaflet@1.3.4/dist/leaflet.js"
 		   integrity="sha512-nMMmRyTVoLYqjP9hrbed9S+FzjZHW5gY1TWCHA5ckwXZBadntCNs8kEqAWdrb9O7rxbCaA4lKTIWjDXZxflOcA=="
 		   crossorigin=""></script>
+		 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script> 
 		
@@ -25,7 +27,7 @@
 		<script type="text/javascript" src="http://maps.stamen.com/js/tile.stamen.js?v1.3.0"></script>
 		
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
-		<style>
+	<style>
        /* Set the size of the div element that contains the map */
       #map {
         height: 500px;  /* The height is 400 pixels */
@@ -34,6 +36,11 @@
     </style>
 	</head>
 	<body class="is-preload">
+		
+
+		<style>
+			#map {height: 100vh; background-color: grey;}
+		</style>
 
 		<!-- Page Wrapper -->
 			<div id="page-wrapper">
@@ -72,99 +79,25 @@
 		<script>
 			//make the map
 			var map = new L.Map("map", {
-				center: new L.LatLng(47, -122),
-				zoom: 7
+				center: new L.LatLng(35.9132, -79.0558),
+				zoom: 13
 			});
 			//add the basemap to the map
 			L.tileLayer('http://tile.stamen.com/terrain/{z}/{x}/{y}.jpg', {
 				attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
 				maxZoom: 18,
 			}).addTo(map);
-			
-			//The geoJson formatted data for stations
-			 var stations = { "type": "FeatureCollection",
-			  "features": [
-				{
-				  "type": "Feature",
-				  "properties": {
-					"name": "Van Dorn Street",
-				  },
-				  "geometry": {
-					"type": "Point",
-					"coordinates": [
-					  -77.12911152370515,
-					  38.79930767201779
-					]
-				  }
-				},
-				{
-				  "type": "Feature",
-				  "properties": {
-					"name": "Franconia-Springfield",
-				  },
-				  "geometry": {
-					"type": "Point",
-					"coordinates": [
-					  -77.16797018042666,
-					  38.766521892689916
-					]
-				  }
-				},
-				{
-				  "type": "Feature",
-				  "properties": {
-					"name": "Federal Center SW",
-				  },
-				  "geometry": {
-					"type": "Point",
-					"coordinates": [
-					  -77.01586821694521,
-					  38.885072355144786
-					]
-				  }
-				},
-				{
-				  "type": "Feature",
-				  "properties": {
-					"name": "Judiciary Sq",
-				  },
-				  "geometry": {
-					"type": "Point",
-					"coordinates": [
-					  -77.01663895662587,
-					  38.896090317663166
-					]
-				  }
-				},
-				{
-				  "type": "Feature",
-				  "properties": {
-					"name": "Capitol South",
-				  },
-				  "geometry": {
-					"type": "Point",
-					"coordinates": [
-					  -77.00513941992737,
-					  38.885062500925
-					]
-				  }
+
+						//add a local geojson file
+			//Thanks to https://www.igismap.com/add-load-geojson-file-point-polyline-polygon-map-leaflet-js/ for the tutorial
+			$.getJSON("assets/data/crash.geojson",function(data){
+			// add GeoJSON layer to the map once the file is loaded
+			var datalayer = L.geoJson(data ,{
+				onEachFeature: function(feature, featureLayer) {
+					featureLayer.bindPopup(feature.properties.NAME_1);
 				}
-			   ]
-			}
-			//make the geojson into a points variable, add markers for each point
-			 var points =   L.geoJson(stations,{
-				  pointToLayer: function(feature,latlng){
-					//the marker goes at the latlong of the point
-					var marker = L.marker(latlng);
-					//the marker has a popup with the name
-					marker.bindPopup(feature.properties.name);
-					return marker;
-				  }
-			});
-			var clusters = L.markerClusterGroup();
-			clusters.addLayer(points);
-			map.addLayer(clusters); 
-			clusters.refreshClusters();
+			}).addTo(map);
+});
 		</script>
 					</section>
 
