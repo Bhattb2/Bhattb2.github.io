@@ -96,23 +96,7 @@
 				onEachFeature: function(feature, featureLayer) {
 					featureLayer.bindPopup(feature.properties.NAME_1);
 				}
-});					<!--Lab 3 -->
-						<section id="four" class="wrapper alt style1">
-								<div class="inner">
-									<h2> Leaflet! </h2></div>
-		<div id="map"></div>
-		<!-- the script for my map -->
-		<script>
-			//make the map
-			var map = new L.Map("map", {
-				center: new L.LatLng(35.9132, -79.0558),
-				zoom: 13
-			});
-			//add the basemap to the map
-			L.tileLayer('http://tile.stamen.com/terrain/{z}/{x}/{y}.jpg', {
-				attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-				maxZoom: 18,
-
+				
 			}).addTo(map);
 });			
 			$.getJSON("assets/data/pedcrashes.geojson",function(data){
