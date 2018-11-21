@@ -88,6 +88,17 @@
 				maxZoom: 18,
 			}).addTo(map);
 
+				//ICONS
+			var bikesIcon = L.icon({
+			    iconUrl: './images/bicycle.jpg',
+			    iconSize: [20,20]
+			  }); 
+
+			var pedsIcon = L.icon({
+			    iconUrl: './images/pedestrian.jpg',
+			    iconSize: [20,20]
+			  }); 
+
 						//add a local geojson file
 			//Thanks to https://www.igismap.com/add-load-geojson-file-point-polyline-polygon-map-leaflet-js/ for the tutorial
 			$.getJSON("assets/data/bikecrashes.geojson",function(data){
@@ -95,6 +106,9 @@
 			var datalayer = L.geoJson(data ,{
 				onEachFeature: function(feature, featureLayer) {
 					featureLayer.bindPopup(feature.properties.crsh_sevri);
+					var marker = L.marker(latlng,{icon: bikesIcon});
+				    marker.bindPopup(feature.properties.Name);
+				    return marker; 
 				}
 				
 			}).addTo(map);
@@ -104,6 +118,9 @@
 			var datalayer1 = L.geoJson(data ,{
 				onEachFeature: function(feature, featureLayer) {
 					featureLayer.bindPopup(feature.properties.crash_type);
+					var marker = L.marker(latlng,{icon: pedsIcon});
+				    marker.bindPopup(feature.properties.Name);
+				    return marker;
 				}
 			}).addTo(map);
 });
