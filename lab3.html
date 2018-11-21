@@ -103,26 +103,24 @@
 			//Thanks to https://www.igismap.com/add-load-geojson-file-point-polyline-polygon-map-leaflet-js/ for the tutorial
 			$.getJSON("assets/data/bikecrashes.geojson",function(data){
 			// add GeoJSON layer to the map once the file is loaded
-			var datalayer = L.geoJson(data ,{
-				onEachFeature: function(feature, featureLayer) {
-					featureLayer.bindPopup(feature.properties.crsh_sevri);
-					var marker = L.marker(latlng,{icon: bikesIcon});
-				    marker.bindPopup(feature.properties.Name);
-				    return marker; 
-				}
-				
-			}).addTo(map);
+				var datalayer = L.geoJson(data ,{
+			pointToLayer: function(feature, latlng){
+		  	var marker = L.marker(latlng,{icon: bikesIcon});
+		    marker.bindPopup(feature.properties.Name);
+		    return marker; 
+		  }
+		  }  ).addTo(map);
 });			
 			$.getJSON("assets/data/pedcrashes.geojson",function(data){
 			// add GeoJSON layer to the map once the file is loaded
 			var datalayer1 = L.geoJson(data ,{
-				onEachFeature: function(feature, featureLayer) {
-					featureLayer.bindPopup(feature.properties.crash_type);
-					var marker = L.marker(latlng,{icon: pedsIcon});
-				    marker.bindPopup(feature.properties.Name);
-				    return marker;
-				}
-			}).addTo(map);
+				pointToLayer: function(feature, latlng){
+		  	var marker = L.marker(latlng,{icon: pedsIcon});
+		    marker.bindPopup(feature.properties.Name);
+		    return marker; 
+		  }
+		  }  ).addTo(map);
+				
 });
 		</script>
 					</section>
