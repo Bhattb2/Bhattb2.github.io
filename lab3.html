@@ -106,7 +106,7 @@
 				var datalayer = L.geoJson(data ,{
 			pointToLayer: function(feature, latlng){
 		  	var marker = L.marker(latlng,{icon: bikesIcon});
-		    marker.bindPopup(feature.properties.Name);
+		    marker.bindPopup(feature.properties.crash_grp);
 		    return marker; 
 		  }
 		  }  ).addTo(map);
@@ -116,7 +116,7 @@
 			var datalayer1 = L.geoJson(data ,{
 				pointToLayer: function(feature, latlng){
 		  	var marker = L.marker(latlng,{icon: pedsIcon});
-		    marker.bindPopup(feature.properties.Name);
+		    marker.bindPopup(feature.properties.crash_type);
 		    return marker; 
 		  }
 		  }  ).addTo(map);
