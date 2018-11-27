@@ -1,0 +1,119 @@
+<!doctype html>
+lab4.html
+<head>
+		<!-- the mapbox libraries -->
+		<script src="https://api.tiles.mapbox.com/mapbox-gl-js/v0.50.0/mapbox-gl.js"></script>
+		<link href="https://api.tiles.mapbox.com/mapbox-gl-js/v0.50.0/mapbox-gl.css" rel="stylesheet">
+	</head>
+	<body>
+		<!-- the div for the map -->
+		<!-- note the style is in-line, we have been putting it in the header. Outcome is the same -->
+		<div id="map" style="width: 800px; height: 800px;" class="mapboxgl-map"><div class="mapboxgl-canary" style="visibility: hidden;"></div><div class="mapboxgl-canvas-container mapboxgl-interactive mapboxgl-touch-drag-pan mapboxgl-touch-zoom-rotate"><canvas class="mapboxgl-canvas" tabindex="0" aria-label="Map" width="800" height="800" style="position: absolute; width: 800px; height: 800px;"></canvas></div><div class="mapboxgl-control-container"><div class="mapboxgl-ctrl-top-left"></div><div class="mapboxgl-ctrl-top-right"></div><div class="mapboxgl-ctrl-bottom-left"><div class="mapboxgl-ctrl" style="display: block;"><a class="mapboxgl-ctrl-logo" target="_blank" href="https://www.mapbox.com/" aria-label="Mapbox logo" rel="noopener"></a></div></div><div class="mapboxgl-ctrl-bottom-right"><div class="mapboxgl-ctrl mapboxgl-ctrl-attrib"><a href="https://www.mapbox.com/about/maps/" target="_blank">© Mapbox</a> <a href="http://www.openstreetmap.org/about/" target="_blank">© OpenStreetMap</a> <a class="mapbox-improve-map" href="https://www.mapbox.com/feedback/?owner=setom&amp;id=cjo4qpqk904sp2sldezo7nhya&amp;access_token=pk.eyJ1Ijoic2V0b20iLCJhIjoiY2o5NmN0dHB4MDNoaDJ3bWw1N2JvemlpaSJ9.McVFy9qwVkdrV_anNWv7jw" target="_blank">Improve this map</a></div></div></div></div>
+		<!-- the script that controls the map -->
+		<script>
+			//my Mapbox token
+			mapboxgl.accessToken = 'pk.eyJ1IjoiYmhhdHRiMiIsImEiOiJjam82azdmNjIwYjk3M2tvYThuNzQxMXM0In0.-DsIcDsDaHJkJoCqDnTnhg';
+			
+			//The map variable
+			var map = new mapboxgl.Map({
+			    container: 'map',
+			    style: 'mapbox://styles/mapbox/streets-v9', 
+			 // stylesheet location',
+			});
+			//set the center & zoom of the map
+			map.setCenter([-149.9003, 61.2181]);
+			map.setZoom(7);
+
+			//on map load, do some stuff
+			map.on('load', function(){
+				//add a source layer for earthquakes
+				map.addSource('earthquakes', {
+			        "type": "geojson",
+			        "data": "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_week.geojson"
+			    });
+			    map.addLayer({
+			    	"id":"equakes",
+			    	"type":"circle",
+			    	"source":"earthquakes",
+			    	"paint": {
+			    		"circle-color": "#ef8821",
+			    		"circle-opacity": 0.5,
+			    		"circle-radius": 12,
+			    		"circle-stroke-color": '#8e4802',
+			    		"circle-stroke-width": 1,
+			    		"circle-stroke-opacity": 0.75
+
+			    	}
+			    });
+
+				//add a handler for clicking/popups 
+				//Thanks to: https://www.mapbox.com/mapbox-gl-js/example/popup-on-click/ 
+				map.on('click', 'equakes', function (e) {
+					map.getCanvas().style.cursor = 'pointer';
+			        var coordinates = e.features[0].geometry.coordinates.slice();
+			        var description= "Magnitude: "+e.features[0].properties.mag+"<br>Location: "+e.features[0].properties.place+"<br><a target= '_blank'href= "+e.features[0].properties.url+">Click here</a>"
+
+			        // Ensure that if the map is zoomed out such that multiple
+			        // copies of the feature are visible, the popup appears
+			        // over the copy being pointed to.
+			        while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+			            coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+			        }
+			        //make the popup
+			        new mapboxgl.Popup()
+			            .setLngLat(coordinates)
+			            .setHTML(description)
+			            .addTo(map);
+
+			    });
+			    map.setCenter([-149.9003, 61.2181]);
+			    map.setZoom(7);
+});
+		</script>
+		<p>Weekly earthquake data for Anchorage, Alaska (USGS)</p>
+	
+
+<!-- Mapbox 2-->
+<div>
+	<h2 style="text-align: center;">UNESCO World Heritage Sites - Uganda</h2>
+	<div id="map1" style='width: 100%; height: 500px';></div>
+	<div id='uganda'>Uganda</div>
+	<script>
+		mapboxgl.accessToken = 'pk.eyJ1IjoiYmhhdHRiMiIsImEiOiJjam82azdmNjIwYjk3M2tvYThuNzQxMXM0In0.-DsIcDsDaHJkJoCqDnTnhg';
+		var map1 = new mapboxgl.Map({
+			container: 'map1',
+			style: 'mapbox.com/studio/styles/bhattb2/cjoz1yskf6ffj2rpj4ngji5e7/edit/',
+			center: [32.2903, 1.3733],
+			zoom: 11.4
+		});
+		map1.scrollZoom.disable();
+		map1.addControl(new MapboxGeocoder({
+			accessToken: mapboxgl.accessToken
+		}));
+		map1.addControl(new mapboxgl.NavigationControl({
+			showCompass: false
+		}));
+		map1.on('load', function(){		
+			var Uganda = document.getElementById('uganda');
+			seattle.addEventListener("click", function(){
+				map1.setCenter([32.2903, 1.3733]);
+				map1.setZoom(10);
+			});
+		});
+	</script>
+	<p>(<b><font color='#ef8113'>UNESCO World Heritage Sites - Uganda</font></b>/<b><font color='#ad5905'>Uganda Cultural & Natural Sites</font></b>)
+		<br><font color='#ad5905'>
+		Uganda is a landlocked country in East Africa that borders Kenya, Tanzania, Rwanda, South Sudan, and the Democratic Republic of the Congo. It is the second most populous landlocked country in the world after Ethiopia. Uganda has some of the sites identified by UNESCO as world heritage sites. One of the sites is the royal tombs at Kasubi, while the other two are Bwindi Impenetrable National Park and Rwenzori Mountains National Park.</font></br>
+		<br><font color='#ad5905'>
+		Tombs of the Buganda Kings at Kasumbi
+		The Kasumbi Tombs are found on the hillsides outside of Kampala City. The tombs are the burial grounds for royals of the Buganda Kingdom. Four kabakas (kings of Buganda) and other family members are buried within the site. The tombs are significant as they showcase the great architectural work done by the Baganda people. These architectural designs were developed in the 13th Century and have survived into the present day and age. The burial grounds have religious significance for the Baganda. Numerous religious rituals are performed at the site. UNESCO listed the tombs in 2010 as a cultural world heritage site, and it is also listed as an endangered site due to the threats to its conservation.</font></br>
+		<br><font color='#ad5905'>
+		Bwindi Impenetrable National Park
+		The Bwindi Impenetrable National Park was listed by UNESCO as a World Natural Heritage site 1994. It is in southwest Uganda and occupies 32,000 hectares of land. It is mainly covered by an impenetrable forest. The forest is a small portion of the forest that once covered parts of Rwanda, Burundi, the Democratic Republic of the Congo, and Uganda. It has a broad range of plant and animal spices. It is also home to some endangered species, the most notable - the Mountain gorilla. Half of the world’s Mountain gorillas live in Bwindi National Park. The park is inhabited by more than 300 bird species, over 200 butterfly species, 120 mammal species, and 27 reptile species. In addition to wildlife, the park has over 200 tree species and 104 fern species. Adjacent communities do not have access to the forest, but they engaged in ecotourism programs that benefit the whole community.</font></br>
+		<br><font color='#ad5905'>
+		Rwenzori Mountains National Park
+		The Rwenzori Mountains National Park was also listed as a Natural World Heritage Site in 1994 by UNESCO. It is an alpine area found in the western Uganda covering around 100,000 hectares. The park’s natural beauty is profound and attracts tourists from around the world. It boasts of magnificent glaciers, beautiful lakes, and breathtaking waterfalls. Additionally, the snow-capped peaks, clear rivers, and unique flora add to the park’s beauty. It has the third largest mountain in Africa standing at 5109 meters. The park is a permanent source of River Nile. Rwenzori Mountains National Park also has diverse plants and animal species most of which are endemic. It has clearly marked boundaries that reduce invasion into the park by local communities.</font></br>
+
+	</p>
+</section>
+</body> 
