@@ -77,7 +77,7 @@ lab4.html
 <div>
 	<h2 style="text-align: center;">Cary, North Carolina Crime Map</h2>
 	<div id="map1" style='width: 100%; height: 500px';></div>
-	<div id='uganda'>Uganda</div>
+	<div id='cary'>Cary</div>
 	<script>
 		mapboxgl.accessToken = 'pk.eyJ1IjoiYmhhdHRiMiIsImEiOiJjam82azdmNjIwYjk3M2tvYThuNzQxMXM0In0.-DsIcDsDaHJkJoCqDnTnhg';
 		var map1 = new mapboxgl.Map({
@@ -86,7 +86,7 @@ lab4.html
 			 // stylesheet location',
 			});
 			//set the center & zoom of the map
-			map1.setCenter([-149.9003, 61.2181]);
+			map1.setCenter([-78.78, 35.79]);
 			map1.setZoom(7);
 			map1.on('load', function(){
 				//add a source layer for earthquakes
@@ -96,9 +96,17 @@ lab4.html
 			    });
 			    map1.addLayer({
 			    	"id":"crimeslayer",
-			    	"type":"circles",
-			    	"source":"crimes"
-			    	
+			    	"type":"circle",
+			    	"source":"crimes",
+			    	"paint": {
+			    		"circle-color": "#ef8821",
+			    		"circle-opacity": 0.5,
+			    		"circle-radius": 10,
+			    		"circle-stroke-color": '#8e4802',
+			    		"circle-stroke-width": 1,
+			    		"circle-stroke-opacity": 0.75
+
+			    	}
 			    });
 			    map1.on('click', 'crimeslayer', function (e) {
 					map1.getCanvas().style.cursor = 'pointer';
@@ -127,7 +135,6 @@ lab4.html
 	<p>(<b><font color='#ef8113'>Crimes Mapping - Cary, North Carolina</font></b>)
 		<br><font color='#ad5905'>
 		The police incidents data on the crimes of arson, motor vehicle thefts, larcenies, burglaries, aggravated assaults, robberies and homicides as well as crimes of drugs, alcohol offenses, disorderly conduct, embezzlement, family offenses, forgery, fraud, simple assault, stolen property, and vandalism. Sexual assaults and crimes involving juveniles do not appear to help protect the identities of victims.</font></br>
-		<br><font color='#ad5905'>
 		</font></br>
 		
 
