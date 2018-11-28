@@ -81,38 +81,55 @@ lab4.html
 	<script>
 		mapboxgl.accessToken = 'pk.eyJ1IjoiYmhhdHRiMiIsImEiOiJjam82azdmNjIwYjk3M2tvYThuNzQxMXM0In0.-DsIcDsDaHJkJoCqDnTnhg';
 		var map1 = new mapboxgl.Map({
-			container: 'map1',
-			style: 'mapbox.com/studio/styles/bhattb2/cjoz1yskf6ffj2rpj4ngji5e7/edit/',
-			center: [32.2903, 1.3733],
-			zoom: 11.4
-		});
-		map1.scrollZoom.disable();
-		map1.addControl(new MapboxGeocoder({
-			accessToken: mapboxgl.accessToken
-		}));
-		map1.addControl(new mapboxgl.NavigationControl({
-			showCompass: false
-		}));
-		map1.on('load', function(){		
-			var Uganda = document.getElementById('uganda');
-			seattle.addEventListener("click", function(){
-				map1.setCenter([32.2903, 1.3733]);
-				map1.setZoom(10);
+			    container: 'map1',
+			    style: 'mapbox://styles/mapbox/streets-v9', 
+			 // stylesheet location',
 			});
-		});
+			//set the center & zoom of the map
+			map1.setCenter([-149.9003, 61.2181]);
+			map1.setZoom(7);
+			map1.on('load', function(){
+				//add a source layer for earthquakes
+				map1.addSource('crimes', {
+			        "type": "geojson",
+			        "data": "https://data.townofcary.org/api/v2/catalog/datasets/crime-mapping/exports/geojson"
+			    });
+			    map1.addLayer({
+			    	"id":"crimeslayer",
+			    	"type":"circle",
+			    	"source":"crimes"
+			    	
+			    });
+			    map1.on('click', 'crimeslayer', function (e) {
+					map1.getCanvas().style.cursor = 'pointer';
+			        var coordinates = e.features[0].geometry.coordinates.slice();
+			        var description= e.features[0].properties.crime_type;
+
+			        // Ensure that if the map is zoomed out such that multiple
+			        // copies of the feature are visible, the popup appears
+			        // over the copy being pointed to.
+			        while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+			            coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+			        }
+			        //make the popup
+			        new mapboxgl.Popup()
+			            .setLngLat(coordinates)
+			            .setHTML(description)
+			            .addTo(map1);
+
+			    });
+
+			    map1.setCenter([-78.78, 35.79]);
+			    map1.setZoom(10);
+
+			});	
 	</script>
-	<p>(<b><font color='#ef8113'>UNESCO World Heritage Sites - Uganda</font></b>/<b><font color='#ad5905'>Uganda Cultural & Natural Sites</font></b>)
+	<p>(<b><font color='#ef8113'>Crimes in Cary, North Carolina</font></b>/<b><font color='#ad5905'>Cary, North Carolina Crime Mapping</font></b>)
 		<br><font color='#ad5905'>
-		Uganda is a landlocked country in East Africa that borders Kenya, Tanzania, Rwanda, South Sudan, and the Democratic Republic of the Congo. It is the second most populous landlocked country in the world after Ethiopia. Uganda has some of the sites identified by UNESCO as world heritage sites. One of the sites is the royal tombs at Kasubi, while the other two are Bwindi Impenetrable National Park and Rwenzori Mountains National Park.</font></br>
+		The police incidents will provide data on the crimes of arson, motor vehicle thefts, larcenies, burglaries, aggravated assaults, robberies and homicides as well as crimes of drugs, alcohol offenses, disorderly conduct, embezzlement, family offenses, forgery, fraud, simple assault, stolen property, and vandalism. Sexual assaults and crimes involving juveniles will not appear to help protect the identities of victims.</font></br>
 		<br><font color='#ad5905'>
-		Tombs of the Buganda Kings at Kasumbi
-		The Kasumbi Tombs are found on the hillsides outside of Kampala City. The tombs are the burial grounds for royals of the Buganda Kingdom. Four kabakas (kings of Buganda) and other family members are buried within the site. The tombs are significant as they showcase the great architectural work done by the Baganda people. These architectural designs were developed in the 13th Century and have survived into the present day and age. The burial grounds have religious significance for the Baganda. Numerous religious rituals are performed at the site. UNESCO listed the tombs in 2010 as a cultural world heritage site, and it is also listed as an endangered site due to the threats to its conservation.</font></br>
-		<br><font color='#ad5905'>
-		Bwindi Impenetrable National Park
-		The Bwindi Impenetrable National Park was listed by UNESCO as a World Natural Heritage site 1994. It is in southwest Uganda and occupies 32,000 hectares of land. It is mainly covered by an impenetrable forest. The forest is a small portion of the forest that once covered parts of Rwanda, Burundi, the Democratic Republic of the Congo, and Uganda. It has a broad range of plant and animal spices. It is also home to some endangered species, the most notable - the Mountain gorilla. Half of the world’s Mountain gorillas live in Bwindi National Park. The park is inhabited by more than 300 bird species, over 200 butterfly species, 120 mammal species, and 27 reptile species. In addition to wildlife, the park has over 200 tree species and 104 fern species. Adjacent communities do not have access to the forest, but they engaged in ecotourism programs that benefit the whole community.</font></br>
-		<br><font color='#ad5905'>
-		Rwenzori Mountains National Park
-		The Rwenzori Mountains National Park was also listed as a Natural World Heritage Site in 1994 by UNESCO. It is an alpine area found in the western Uganda covering around 100,000 hectares. The park’s natural beauty is profound and attracts tourists from around the world. It boasts of magnificent glaciers, beautiful lakes, and breathtaking waterfalls. Additionally, the snow-capped peaks, clear rivers, and unique flora add to the park’s beauty. It has the third largest mountain in Africa standing at 5109 meters. The park is a permanent source of River Nile. Rwenzori Mountains National Park also has diverse plants and animal species most of which are endemic. It has clearly marked boundaries that reduce invasion into the park by local communities.</font></br>
+	</font></br>
+		
 
 	</p>
 </section>
