@@ -1,0 +1,199 @@
+<!doctype html>
+lab5.html
+<head>
+		<!-- the mapbox libraries -->
+		<script src="https://api.tiles.mapbox.com/mapbox-gl-js/v0.50.0/mapbox-gl.js"></script>
+		<link href="https://api.tiles.mapbox.com/mapbox-gl-js/v0.50.0/mapbox-gl.css" rel="stylesheet">
+	</head>
+	<body>
+		<!-- the div for the map -->
+		<!-- note the style is in-line, we have been putting it in the header. Outcome is the same -->
+		<div id="map" style="width: 800px; height: 800px;" class="mapboxgl-map"><div class="mapboxgl-canary" style="visibility: hidden;"></div><div class="mapboxgl-canvas-container mapboxgl-interactive mapboxgl-touch-drag-pan mapboxgl-touch-zoom-rotate"><canvas class="mapboxgl-canvas" tabindex="0" aria-label="Map" width="800" height="800" style="position: absolute; width: 800px; height: 800px;"></canvas></div><div class="mapboxgl-control-container"><div class="mapboxgl-ctrl-top-left"></div><div class="mapboxgl-ctrl-top-right"></div><div class="mapboxgl-ctrl-bottom-left"><div class="mapboxgl-ctrl" style="display: block;"><a class="mapboxgl-ctrl-logo" target="_blank" href="https://www.mapbox.com/" aria-label="Mapbox logo" rel="noopener"></a></div></div><div class="mapboxgl-ctrl-bottom-right"><div class="mapboxgl-ctrl mapboxgl-ctrl-attrib"><a href="https://www.mapbox.com/about/maps/" target="_blank">© Mapbox</a> <a href="http://www.openstreetmap.org/about/" target="_blank">© OpenStreetMap</a> <a class="mapbox-improve-map" href="https://www.mapbox.com/feedback/?owner=setom&amp;id=cjo4qpqk904sp2sldezo7nhya&amp;access_token=pk.eyJ1Ijoic2V0b20iLCJhIjoiY2o5NmN0dHB4MDNoaDJ3bWw1N2JvemlpaSJ9.McVFy9qwVkdrV_anNWv7jw" target="_blank">Improve this map</a></div></div></div></div>
+		<!-- the script that controls the map -->
+	<!-- Mapbox 2-->
+<div>
+	<h2 style="text-align: center;"> Historic landfills/waste disposal storage sites for the State of Vermont</h2>
+	<div id="map" style='width: 100%; height: 500px';></div>
+	<div id='vermont'>Vermont</div>
+	<script>
+		mapboxgl.accessToken = 'pk.eyJ1IjoiYmhhdHRiMiIsImEiOiJjam82azdmNjIwYjk3M2tvYThuNzQxMXM0In0.-DsIcDsDaHJkJoCqDnTnhg';
+		var map = new mapboxgl.Map({
+			    container: 'map',
+			    style: 'mapbox://styles/bhattb2/cjp903wxt7igt2rjubu11jdlh', 
+			 // stylesheet location',
+			});
+			//set the center & zoom of the map
+			map.setCenter([-72.58, 44.56]);
+			map.setZoom(7);
+			map.on('load', function(){
+				//add a source layer for earthquakes
+				map.addSource('landfills', {
+			        "type": "geojson",
+			        "data": "http://geodata.vermont.gov/datasets/32484e6881ef4a77b399457afc22c912_164.geojson"
+			    });
+			    map.addLayer({
+			    	"id":"landfills",
+			    	"type":"circle",
+			    	"source":"landfills",
+			    	"paint": {
+			    		"circle-color": "#d2691e",
+			    		"circle-opacity": 0.8,
+			    		"circle-radius": 3,
+			    		"circle-stroke-color": '#2f4f4f',
+			    		"circle-stroke-width": 1,
+			    		"circle-stroke-opacity": 0.8
+
+			    	}
+			    });
+			    map.on('click', 'landfills', function (e) {
+					map.getCanvas().style.cursor = 'pointer';
+			        var coordinates = e.features[0].geometry.coordinates.slice();
+			        var description= e.features[0].properties.crime_type;
+
+			        // Ensure that if the map is zoomed out such that multiple
+			        // copies of the feature are visible, the popup appears
+			        // over the copy being pointed to.
+			        while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+			            coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+			        }
+			        //make the popup
+			        new mapboxgl.Popup()
+			            .setLngLat(coordinates)
+			            .setHTML(description)
+			            .addTo(map);
+
+			    });
+
+			    map.setCenter([-72.58, 44]);
+			    map.setZoom(6.5);
+
+			});	
+	</script>
+	<p>(<b><font color='#ef8113'>Crimes Mapping - Cary, North Carolina</font></b>)
+		<br><font color='#ad5905'>
+		The police incidents data on the crimes of arson, motor vehicle thefts, larcenies, burglaries, aggravated assaults, robberies and homicides as well as crimes of drugs, alcohol offenses, disorderly conduct, embezzlement, family offenses, forgery, fraud, simple assault, stolen property, and vandalism. Sexual assaults and crimes involving juveniles do not appear to help protect the identities of victims.</font></br>
+		</font></br>
+		
+
+	</p>
+</section>
+	
+
+<!-- Heatmap -->
+<div>
+	<h2 style="text-align: center;"> Historic landfills/waste disposal storage sites for the State of Vermont</h2>
+	<div id="map1" style='width: 100%; height: 500px';></div>
+	<div id='vermont'>Vermont</div>
+	<script>
+		mapboxgl.accessToken = 'pk.eyJ1IjoiYmhhdHRiMiIsImEiOiJjam82azdmNjIwYjk3M2tvYThuNzQxMXM0In0.-DsIcDsDaHJkJoCqDnTnhg';
+		var map1 = new mapboxgl.Map({
+			    container: 'map1',
+			    style: 'mapbox://styles/bhattb2/cjp8zu3nl09ja2sn6idco9a1j', 
+			 // stylesheet location',
+			});
+			//set the center & zoom of the map
+			map1.setCenter([-72.58, 44.56]);
+			map1.setZoom(7);
+			map1.on('load', function(){
+				//add a source layer for earthquakes
+				map1.addSource('landfills', {
+			        "type": "geojson",
+			        "data": "http://geodata.vermont.gov/datasets/32484e6881ef4a77b399457afc22c912_164.geojson"
+			    });
+			    map1.addLayer({
+  id: 'landfill-heat',
+  type: 'heatmap',
+  source: 'landfills',
+  maxzoom: 15,
+  paint: {
+    // increase weight as diameter breast height increases
+    'heatmap-weight': {
+      property: 'dbh',
+      type: 'exponential',
+      stops: [
+        [1, 0],
+        [62, 1]
+      ]
+    },
+    // increase intensity as zoom level increases
+    'heatmap-intensity': {
+      stops: [
+        [11, 1],
+        [15, 3]
+      ]
+    },
+    // assign color values be applied to points depending on their density
+    'heatmap-color': [
+      'interpolate',
+      ['linear'],
+      ['heatmap-density'],
+      0, 'rgba(255,255,212,0)',
+      0.2, 'rgb(254,217,142)',
+      0.4, 'rgb(254,153,41)',
+      0.6, 'rgb(217,95,14)',
+      0.8, 'rgb(153,52,4)'
+    ],
+    // increase radius as zoom increases
+    'heatmap-radius': {
+      stops: [
+        [11, 15],
+        [15, 20]
+      ]
+    },
+    // decrease opacity to transition into the circle layer
+    'heatmap-opacity': {
+      default: 0.5,
+      stops: [
+        [14, 1],
+        [15, 0]
+      ]
+    },
+  }
+}, 'waterway-label');
+			    map1.addLayer({
+			    	"id":"landfills",
+			    	"type":"circle",
+			    	"source":"landfills",
+			    	"paint": {
+			    		"circle-color": "brown",
+			    		"circle-opacity": 0.8,
+			    		"circle-radius": 2,
+			    		"circle-stroke-color": 'brown',
+			    		"circle-stroke-width": 1,
+			    		"circle-stroke-opacity": 0.8
+
+			    	}
+			    });
+			    map1.on('click', 'landfills', function (e) {
+					map1.getCanvas().style.cursor = 'pointer';
+			        var coordinates = e.features[0].geometry.coordinates.slice();
+			        var description= e.features[0].properties.crime_type;
+
+			        // Ensure that if the map is zoomed out such that multiple
+			        // copies of the feature are visible, the popup appears
+			        // over the copy being pointed to.
+			        while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+			            coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+			        }
+			        //make the popup
+			        new mapboxgl.Popup()
+			            .setLngLat(coordinates)
+			            .setHTML(description)
+			            .addTo(map1);
+
+			    });
+
+			    map1.setCenter([-72.58, 44]);
+			    map1.setZoom(6.5);
+
+			});	
+	</script>
+	<p>(<b><font color='#ef8113'>Crimes Mapping - Cary, North Carolina</font></b>)
+		<br><font color='#ad5905'>
+		The police incidents data on the crimes of arson, motor vehicle thefts, larcenies, burglaries, aggravated assaults, robberies and homicides as well as crimes of drugs, alcohol offenses, disorderly conduct, embezzlement, family offenses, forgery, fraud, simple assault, stolen property, and vandalism. Sexual assaults and crimes involving juveniles do not appear to help protect the identities of victims.</font></br>
+		</font></br>
+		
+
+	</p>
+</section>
+</body> 
