@@ -45,7 +45,7 @@ lab5.html
 			    map.on('click', 'landfills', function (e) {
 					map.getCanvas().style.cursor = 'pointer';
 			        var coordinates = e.features[0].geometry.coordinates.slice();
-			        var description= e.features[0].properties.crime_type;
+			        var description= e.features[0].properties.SITENAME;
 
 			        // Ensure that if the map is zoomed out such that multiple
 			        // copies of the feature are visible, the popup appears
@@ -162,7 +162,7 @@ lab5.html
 			    map1.on('click', 'landfills', function (e) {
 					map1.getCanvas().style.cursor = 'pointer';
 			        var coordinates = e.features[0].geometry.coordinates.slice();
-			        var description= e.features[0].properties.crime_type;
+			        var description= e.features[0].properties.SITEMAP;
 
 			        // Ensure that if the map is zoomed out such that multiple
 			        // copies of the feature are visible, the popup appears
@@ -185,6 +185,7 @@ lab5.html
 	</script>
 	<p>(<b><font color='#ef8113'Historic landfills heatmap - Vermont</font></b>)
 		<br><font color='#ad5905'>
+		The police incidents data on the crimes of arson, motor vehicle thefts, larcenies, burglaries, aggravated assaults, robberies and homicides as well as crimes of drugs, alcohol offenses, disorderly conduct, embezzlement, family offenses, forgery, fraud, simple assault, stolen property, and vandalism. Sexual assaults and crimes involving juveniles do not appear to help protect the identities of victims.
 		</font></br>
 		
 		
