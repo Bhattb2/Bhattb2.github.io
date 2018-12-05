@@ -45,7 +45,8 @@ lab5.html
 			    map.on('click', 'landfills', function (e) {
 					map.getCanvas().style.cursor = 'pointer';
 			        var coordinates = e.features[0].geometry.coordinates.slice();
-			        var description= e.features[0].properties.SITENAME;
+			        var description= "SITENAME: "+e.features[0].properties.SITENAME+"<br>Location: "+e.features[0].properties.TOWNNAME+"<br><a target= '_blank'href= "+e.features[0].properties.url+">Click here</a>"
+
 
 			        // Ensure that if the map is zoomed out such that multiple
 			        // copies of the feature are visible, the popup appears
@@ -162,8 +163,7 @@ lab5.html
 			    map1.on('click', 'landfills', function (e) {
 					map1.getCanvas().style.cursor = 'pointer';
 			        var coordinates = e.features[0].geometry.coordinates.slice();
-			        var description= e.features[0].properties.SITEMAP;
-
+			        var description= "SITENAME: "+e.features[0].properties.SITENAME+"<br>Location: "+e.features[0].properties.TOWNNAME+"<br><a target= '_blank'href= "+e.features[0].properties.url+"></a>"
 			        // Ensure that if the map is zoomed out such that multiple
 			        // copies of the feature are visible, the popup appears
 			        // over the copy being pointed to.
