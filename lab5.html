@@ -45,7 +45,7 @@ lab5.html
 			    map.on('click', 'landfills', function (e) {
 					map.getCanvas().style.cursor = 'pointer';
 			        var coordinates = e.features[0].geometry.coordinates.slice();
-			        var description= "SITENAME: "+e.features[0].properties.SITENAME+"<br>Location: "+e.features[0].properties.TOWNNAME+"<br><a target= '_blank'href= "+e.features[0].properties.url+">Click here</a>"
+			        var description= "SITENAME: "+e.features[0].properties.SITENAME+"<br>Location: "+e.features[0].properties.TOWNNAME+"<br><a target= '_blank'href= "+e.features[0].properties.url+"></a>"
 
 
 			        // Ensure that if the map is zoomed out such that multiple
