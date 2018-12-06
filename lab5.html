@@ -163,7 +163,7 @@ lab5.html
 			    map1.on('click', 'landfills', function (e) {
 					map1.getCanvas().style.cursor = 'pointer';
 			        var coordinates = e.features[0].geometry.coordinates.slice();
-			        var description= "SITENAME: "+e.features[0].properties.SITENAME+"<br>Location: "+e.features[0].properties.TOWNNAME+"<br><a target= '_blank'href= "+e.features[0].properties.url+"></a>"
+			         var description= "SITENAME: "+e.features[0].properties.SITENAME+"<br>Location: "+e.features[0].properties.TOWNNAME+"<br><a target= '_blank'href= "+e.features[0].properties.url+"></a>"
 			        // Ensure that if the map is zoomed out such that multiple
 			        // copies of the feature are visible, the popup appears
 			        // over the copy being pointed to.
@@ -185,7 +185,7 @@ lab5.html
 	</script>
 	<p>(<b><font color='#ef8113'Historic landfills heatmap - Vermont</font></b>)
 		<br><font color='#ad5905'>
-		The police incidents data on the crimes of arson, motor vehicle thefts, larcenies, burglaries, aggravated assaults, robberies and homicides as well as crimes of drugs, alcohol offenses, disorderly conduct, embezzlement, family offenses, forgery, fraud, simple assault, stolen property, and vandalism. Sexual assaults and crimes involving juveniles do not appear to help protect the identities of victims.
+		The above heatmap displays geo-located active landfills which are currently accepting waste; geo-located closed landfills that have ceased accepting waste and completed closure under solid waste regulations.
 		</font></br>
 		
 		
