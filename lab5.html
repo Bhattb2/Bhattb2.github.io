@@ -163,7 +163,7 @@ lab5.html
 			    map1.on('click', 'landfills', function (e) {
 					map1.getCanvas().style.cursor = 'pointer';
 			        var coordinates = e.features[0].geometry.coordinates.slice();
-			         var description= "SITENAME: "+e.features[0].properties.SITENAME+"<br>Location: "+e.features[0].properties.TOWNNAME+"<br><a target= '_blank'href= "+e.features[0].properties.url+"></a>"
+			         var description= "SITENAME: "+e.features[0].properties.SITENAME+"<br>Location: "+e.features[0].properties.TOWNNAME+"<br>Year Open: "+e.features[0].properties.DATE_FIRST+"<br>Status: "+e.features[0].properties.STATUS+"<br><a target= '_blank'href= "+e.features[0].properties.url+"></a>"
 			        // Ensure that if the map is zoomed out such that multiple
 			        // copies of the feature are visible, the popup appears
 			        // over the copy being pointed to.
