@@ -9,6 +9,8 @@
 	<body>
 		<!-- the div for the map -->
 		<!-- note the style is in-line, we have been putting it in the header. Outcome is the same -->
+<div>
+		<h1 style="text-align: center; color: #ad5905">Alaska Earthquakes</h1>
 		<div id="map" style="width: 100%; height: 500px;" class="mapboxgl-map"><div class="mapboxgl-canary" style="visibility: hidden;"></div><div class="mapboxgl-canvas-container mapboxgl-interactive mapboxgl-touch-drag-pan mapboxgl-touch-zoom-rotate"><canvas class="mapboxgl-canvas" tabindex="0" aria-label="Map" width="800" height="800" style="position: absolute; width: 800px; height: 800px;"></canvas></div><div class="mapboxgl-control-container"><div class="mapboxgl-ctrl-top-left"></div><div class="mapboxgl-ctrl-top-right"></div><div class="mapboxgl-ctrl-bottom-left"><div class="mapboxgl-ctrl" style="display: block;"><a class="mapboxgl-ctrl-logo" target="_blank" href="https://www.mapbox.com/" aria-label="Mapbox logo" rel="noopener"></a></div></div><div class="mapboxgl-ctrl-bottom-right"><div class="mapboxgl-ctrl mapboxgl-ctrl-attrib"><a href="https://www.mapbox.com/about/maps/" target="_blank">© Mapbox</a> <a href="http://www.openstreetmap.org/about/" target="_blank">© OpenStreetMap</a> <a class="mapbox-improve-map" href="https://www.mapbox.com/feedback/?owner=setom&amp;id=cjo4qpqk904sp2sldezo7nhya&amp;access_token=pk.eyJ1Ijoic2V0b20iLCJhIjoiY2o5NmN0dHB4MDNoaDJ3bWw1N2JvemlpaSJ9.McVFy9qwVkdrV_anNWv7jw" target="_blank">Improve this map</a></div></div></div></div>
 		<!-- the script that controls the map -->
 		<script>
@@ -39,7 +41,7 @@
 			    	"source":"earthquakes",
 			    	"paint": {
 			    		"circle-color": "#8d9096",
-			    		"circle-opacity": 0.5,
+			    		"circle-opacity": 0.75,
 			    		"circle-radius": 12,
 			    		"circle-stroke-color": '#8e4802',
 			    		"circle-stroke-width": 1,
@@ -77,7 +79,7 @@
 
 <!-- Mapbox 2-->
 <div>
-	<h2 style="text-align: center;">Cary, North Carolina - Crime Map</h2>
+	<h2 style="text-align: center; color: #ad5905">Cary, North Carolina - Crime Map</h2>
 	<div id="map1" style='width: 100%; height: 500px';></div>
 	<div id=''></div>
 	<script>
