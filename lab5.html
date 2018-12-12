@@ -1,90 +1,34 @@
 <!doctype html>
-lab5.html
 <head>
-		<!-- the mapbox libraries -->
-		<script src="https://api.tiles.mapbox.com/mapbox-gl-js/v0.50.0/mapbox-gl.js"></script>
-		<link href="https://api.tiles.mapbox.com/mapbox-gl-js/v0.50.0/mapbox-gl.css" rel="stylesheet">
+	<!-- the mapbox libraries -->
+	<script src="https://api.tiles.mapbox.com/mapbox-gl-js/v0.50.0/mapbox-gl.js"></script>
+	<link href="https://api.tiles.mapbox.com/mapbox-gl-js/v0.50.0/mapbox-gl.css" rel="stylesheet">
 </head>
-	<body>
-		
-	<!-- Mapbox 2-->
-<div>
-	<h2 style="text-align: center;"> Historic landfills/waste disposal storage sites for the State of Vermont</h2>
-	<div id="map" style='width: 100vw; height: 100vh';></div>
+<style>
+		img.resize {
+		max-width:15%;
+		max-height:15%;
+	}
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+</style>
+<body>
 
-	<script>
-		mapboxgl.accessToken = 'pk.eyJ1IjoiYmhhdHRiMiIsImEiOiJjam82azdmNjIwYjk3M2tvYThuNzQxMXM0In0.-DsIcDsDaHJkJoCqDnTnhg';
-		var map = new mapboxgl.Map({
-			    container: 'map',
-			    style: 'mapbox://styles/bhattb2/cjp903wxt7igt2rjubu11jdlh', 
-			 // stylesheet location',
-			});
-			//set the center & zoom of the map
-			map.setCenter([-72.45, 43.7]);
-			map.setZoom(7.25);
-			map.on('load', function(){
-				//add a source layer for landfills
-				map.addSource('landfills', {
-			        "type": "geojson",
-			        "data": "https://opendata.arcgis.com/datasets/32484e6881ef4a77b399457afc22c912_164.geojson"
-			    });
-			    map.addLayer({
-			    	"id":"landfills",
-			    	"type":"circle",
-			    	"source":"landfills",
-			    	"paint": {
-			    		"circle-color": "#d2691e",
-			    		"circle-opacity": 0.8,
-			    		"circle-radius": 6.5,
-			    		"circle-stroke-color": '#2f4f4f',
-			    		"circle-stroke-width": 1.5,
-			    		"circle-stroke-opacity": 0.8
-
-			    	}
-			    });
-			    map.on('click', 'landfills', function (e) {
-					map.getCanvas().style.cursor = 'pointer';
-			        var coordinates = e.features[0].geometry.coordinates.slice();
-			        var description= ""+e.features[0].properties.SITENAME+"<br>City: "+e.features[0].properties.TOWNNAME+"<br>Year Open: "+e.features[0].properties.DATE_FIRST+"<br>Status: "+e.features[0].properties.STATUS+"<br><a target= '_blank'href= "+e.features[0].properties.url+"></a>"
-
-
-			        // Ensure that if the map is zoomed out such that multiple
-			        // copies of the feature are visible, the popup appears
-			        // over the copy being pointed to.
-			        while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-			            coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
-			        }
-			        //make the popup
-			        new mapboxgl.Popup()
-			            .setLngLat(coordinates)
-			            .setHTML(description)
-			            .addTo(map);
-
-			    });
-
-			    map.setCenter([-72.45, 43.7]);
-			    map.setZoom(7.25);
-
-			});	
-	</script>
-	<p>(<b><font color='#ef8113'>Historic landfills - Vermont</font></b>)
-		<br><font color='#ad5905'>
-		The above map displays geo-located active landfills which are currently accepting waste; geo-located closed landfills that have ceased accepting waste and completed closure under solid waste regulations (post-1988); historic landfills - ceased accepting waste prior to solid waste regulation implementation (pre-1988), locations obtained from a 1990 Vermont Groundwater Pollution Source Inventory completed by the Department of Waster Resources and Environmental Engineering Groundwater Management Section. The listing of historic landfills is likely incomplete.</font></br>
-		</font></br>
-		
-	</p>
-</section>
-	
-<!-- Heatmap -->
-<div>
-	<h2 style="text-align: center;"> Historic landfills/waste disposal storage sites for the State of Vermont</h2>
-	<div id="map1" style='width: 100vw; height: 100vh';></div>
-	<div id='vermont'>Vermont</div>
-	<script>
-		mapboxgl.accessToken = 'pk.eyJ1IjoiYmhhdHRiMiIsImEiOiJjam82azdmNjIwYjk3M2tvYThuNzQxMXM0In0.-DsIcDsDaHJkJoCqDnTnhg';
-		var map1 = new mapboxgl.Map({
-			    container: 'map1',
-			    style: 'mapbox://styles/bhattb2/cjp8zu3nl09ja2sn6idco9a1j', 
+	<!-- Heatmap -->
+	<div>
+		<h1 style="text-align: center;">State of Vermont</h1>
+		<img class="resize center" src="VTCoat.png">
+		<h2 style="text-align: center; color: #ad5905">Historic Landfills</h2>
+		<div id="map1" style='width: 100%; height: 800px' ;></div>
+		<script>
+			mapboxgl.accessToken = 'pk.eyJ1IjoiYmhhdHRiMiIsImEiOiJjam82azdmNjIwYjk3M2tvYThuNzQxMXM0In0.-DsIcDsDaHJkJoCqDnTnhg';
+			var map1 = new mapboxgl.Map({
+				container: 'map1',
+				style: 'mapbox://styles/bhattb2/cjp8zu3nl09ja2sn6idco9a1j', 
 			 // stylesheet location',
 			});
 			//set the center & zoom of the map
@@ -93,103 +37,166 @@ lab5.html
 			map1.on('load', function(){
 				//add a source layer for landfills
 				map1.addSource('landfills', {
-			        "type": "geojson",
-			        "data": "https://opendata.arcgis.com/datasets/32484e6881ef4a77b399457afc22c912_164.geojson"
-			    });
-			    map1.addLayer({
-  id: 'landfill-heat',
-  type: 'heatmap',
-  source: 'landfills',
-  maxzoom: 15,
-  paint: {
+					"type": "geojson",
+					"data": "https://opendata.arcgis.com/datasets/32484e6881ef4a77b399457afc22c912_164.geojson"
+				});
+				map1.scrollZoom.disable();
+				map1.addLayer({
+					id: 'landfill-heat',
+					type: 'heatmap',
+					source: 'landfills',
+					maxzoom: 15,
+					paint: {
     // increase weight as diameter breast height increases
     'heatmap-weight': {
-      property: 'dbh',
-      type: 'exponential',
-      stops: [
-        [1, 0],
-        [62, 1]
-      ]
+    	property: 'dbh',
+    	type: 'exponential',
+    	stops: [
+    	[1, 0],
+    	[62, 1]
+    	]
     },
     // increase intensity as zoom level increases
     'heatmap-intensity': {
-      stops: [
-        [11, 1],
-        [15, 3]
-      ]
+    	stops: [
+    	[11, 1],
+    	[15, 3]
+    	]
     },
     // assign color values be applied to points depending on their density
     'heatmap-color': [
-      'interpolate',
-      ['linear'],
-      ['heatmap-density'],
-      0, 'rgba(255,255,212,0)',
-      0.2, 'rgb(254,217,142)',
-      0.4, 'rgb(254,153,41)',
-      0.6, 'rgb(217,95,14)',
-      0.8, 'rgb(153,52,4)'
+    'interpolate',
+    ['linear'],
+    ['heatmap-density'],
+    0, 'rgba(255,255,212,0)',
+    0.2, 'rgb(254,217,142)',
+    0.4, 'rgb(254,153,41)',
+    0.6, 'rgb(217,95,14)',
+    0.8, 'rgb(153,52,4)'
     ],
     // increase radius as zoom increases
     'heatmap-radius': {
-      stops: [
-        [11, 15],
-        [15, 20]
-      ]
+    	stops: [
+    	[11, 15],
+    	[15, 20]
+    	]
     },
     // decrease opacity to transition into the circle layer
     'heatmap-opacity': {
-      default: 0.5,
-      stops: [
-        [14, 1],
-        [15, 0]
-      ]
+    	default: 0.5,
+    	stops: [
+    	[14, 1],
+    	[15, 0]
+    	]
     },
-  }
+}
 }, 'waterway-label');
-			    map1.addLayer({
-			    	"id":"landfills",
-			    	"type":"circle",
-			    	"source":"landfills",
-			    	"paint": {
-			    		"circle-color": "brown",
-			    		"circle-opacity": 0.8,
-			    		"circle-radius": 2,
-			    		"circle-stroke-color": 'brown',
-			    		"circle-stroke-width": 1,
-			    		"circle-stroke-opacity": 0.8
+				map1.addLayer({
+					"id":"landfills",
+					"type":"circle",
+					"source":"landfills",
+					"paint": {
+						"circle-color": "brown",
+						"circle-opacity": 0.8,
+						"circle-radius": 2,
+						"circle-stroke-color": 'brown',
+						"circle-stroke-width": 1,
+						"circle-stroke-opacity": 0.8
 
-			    	}
-			    });
-			    map1.on('click', 'landfills', function (e) {
+					}
+				});
+				map1.on('click', 'landfills', function (e) {
 					map1.getCanvas().style.cursor = 'pointer';
-			        var coordinates = e.features[0].geometry.coordinates.slice();
-			         var description= "SITENAME: "+e.features[0].properties.SITENAME+"<br>Location: "+e.features[0].properties.TOWNNAME+"<br>Year Open: "+e.features[0].properties.DATE_FIRST+"<br>Status: "+e.features[0].properties.STATUS+"<br><a target= '_blank'href= "+e.features[0].properties.url+"></a>"
+					var coordinates = e.features[0].geometry.coordinates.slice();
+					var description= "SITENAME: "+e.features[0].properties.SITENAME+"<br>Location: "+e.features[0].properties.TOWNNAME+"<br>Year Open: "+e.features[0].properties.DATE_FIRST+"<br>Status: "+e.features[0].properties.STATUS+"<br><a target= '_blank'href= "+e.features[0].properties.url+"></a>"
 			        // Ensure that if the map is zoomed out such that multiple
 			        // copies of the feature are visible, the popup appears
 			        // over the copy being pointed to.
 			        while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-			            coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+			        	coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
 			        }
 			        //make the popup
 			        new mapboxgl.Popup()
-			            .setLngLat(coordinates)
-			            .setHTML(description)
-			            .addTo(map1);
+			        .setLngLat(coordinates)
+			        .setHTML(description)
+			        .addTo(map1);
 
 			    });
-
-			    map1.setCenter([-72.45,43.7]);
-			    map1.setZoom(7.25);
-
+				map1.setCenter([-72.45, 43.7]);
+				map1.setZoom(7.25);
 			});	
-	</script>
-	<p>(<b><font color='#ef8113'Historic landfills heatmap - Vermont</font></b>)
-		<br><font color='#ad5905'>
-		The above heatmap displays geo-located active landfills which are currently accepting waste; geo-located closed landfills that have ceased accepting waste and completed closure under solid waste regulations.
+		</script>
+		<p><b><font color='#ef8113'>Historic Landfills heatmap</font></b>
+			<br><font color='#ad5905'>
+				The above map displays geo-located active landfills which are currently accepting waste; geo-located closed landfills that have ceased accepting waste and completed closure under solid waste regulations (post-1988); historic landfills - ceased accepting waste prior to solid waste regulation implementation (pre-1988), locations obtained from a 1990 Vermont Groundwater Pollution Source Inventory completed by the Department of Waster Resources and Environmental Engineering Groundwater Management Section. The listing of historic landfills is likely incomplete.
+			</font></br>
+		</p>
+	</section>
+
+	<!-- Renewable energy -->
+	<div>
+		<h2 style="text-align: center; color: #ad5905">Renewable energy</h2>
+		<div id="map" style='width: 100vw; height: 100vh';></div>
+		<script>
+			mapboxgl.accessToken = 'pk.eyJ1IjoiYmhhdHRiMiIsImEiOiJjam82azdmNjIwYjk3M2tvYThuNzQxMXM0In0.-DsIcDsDaHJkJoCqDnTnhg';
+			var map = new mapboxgl.Map({
+				container: 'map',
+				style: 'mapbox://styles/bhattb2/cjp903wxt7igt2rjubu11jdlh', 
+			 // stylesheet location',
+			});
+			//set the center & zoom of the map
+			map.setCenter([-72.45, 43.7]);
+			map.setZoom(7.25);
+			map.on('load', function(){
+				//add a source layer for landfills
+				map.addSource('landfills', {
+					"type": "geojson",
+					"data": "https://opendata.arcgis.com/datasets/968ca5d70e784226bf457ab5710adf17_17.geojson"
+				});
+				map.scrollZoom.disable();
+				map.addLayer({
+					"id":"landfills",
+					"type":"circle",
+					"source":"landfills",
+					"paint": {
+						"circle-color": "#d2691e",
+						"circle-opacity": 0.8,
+						"circle-radius": 10,
+						"circle-stroke-color": '#2f4f4f',
+						"circle-stroke-width": 2,
+						"circle-stroke-opacity": 1
+
+					}
+				});
+				map.on('click', 'landfills', function (e) {
+					map.getCanvas().style.cursor = 'pointer';
+					var coordinates = e.features[0].geometry.coordinates.slice();
+					var description= ""+e.features[0].properties.SITENAME+"<br>City: "+e.features[0].properties.TOWNNAME+"<br>Year Open: "+e.features[0].properties.DATE_FIRST+"<br>Status: "+e.features[0].properties.STATUS+"<br><a target= '_blank'href= "+e.features[0].properties.url+"></a>"
+
+
+			        // Ensure that if the map is zoomed out such that multiple
+			        // copies of the feature are visible, the popup appears
+			        // over the copy being pointed to.
+			        while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+			        	coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+			        }
+			        //make the popup
+			        new mapboxgl.Popup()
+			        .setLngLat(coordinates)
+			        .setHTML(description)
+			        .addTo(map);
+
+			    });
+				map.setCenter([-72.45, 43.7]);
+				map.setZoom(7.25);
+			});	
+		</script>
+		<p><b><font color='#ef8113'>Renewable Energy Sites</font></b>
+			<br><font color='#ad5905'>TEXT
+			</font></br>
 		</font></br>
 		
-		
-
 	</p>
+</section>
 </section>
 </body> 
