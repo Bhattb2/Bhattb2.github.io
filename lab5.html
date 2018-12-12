@@ -161,9 +161,9 @@
 					"paint": {
 						"circle-color": "#d2691e",
 						"circle-opacity": 0.8,
-						"circle-radius": 10,
+						"circle-radius": 11,
 						"circle-stroke-color": '#2f4f4f',
-						"circle-stroke-width": 2,
+						"circle-stroke-width": 3,
 						"circle-stroke-opacity": 1
 
 					}
@@ -171,7 +171,7 @@
 				map.on('click', 'landfills', function (e) {
 					map.getCanvas().style.cursor = 'pointer';
 					var coordinates = e.features[0].geometry.coordinates.slice();
-					var description= ""+e.features[0].properties.SITENAME+"<br>City: "+e.features[0].properties.TOWNNAME+"<br>Year Open: "+e.features[0].properties.DATE_FIRST+"<br>Status: "+e.features[0].properties.STATUS+"<br><a target= '_blank'href= "+e.features[0].properties.url+"></a>"
+					var description= ""+e.features[0].properties.RnwEnrgLoc+"<br>City: "+e.features[0].properties.City_Town+"</a>"
 
 
 			        // Ensure that if the map is zoomed out such that multiple
@@ -192,7 +192,7 @@
 			});	
 		</script>
 		<p><b><font color='#ef8113'>Renewable Energy Sites</font></b>
-			<br><font color='#ad5905'>TEXT
+			<br><font color='#ad5905'>The above map represents Renewable Energy Map of Vermont.  Its purpose is to aid in making informed decisions regarding the planning and implementation of renewable energy in Vermont’s communities - decisions that eventually steer to successful projects, greater energy security, a cleaner and healthier environment, and a better quality of life across the state. Energy flows through nature into social systems like life support. Human societies depended on renewable, solar powered energy for fuel, shelter, tools, and other items for most of our history. Today, when we flick on a light switch, turn an ignition or a water faucet, or eat a hamburger, we involve complex energy extraction systems which for the most part bank on non-renewable energy to power our lives. Nearly 90% of Vermont's total energy utilization is currently produced from non-renewable energy sources. This reliance situates Vermont at significant risk, as the world oil productions peak, global financial uncertainty, climate change, and other aspects impact the state.
 			</font></br>
 		</font></br>
 		
