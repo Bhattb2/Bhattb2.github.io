@@ -1,0 +1,82 @@
+<!DOCTYPE HTML>
+<head>
+		<!-- the mapbox libraries -->
+		<script src="https://api.tiles.mapbox.com/mapbox-gl-js/v0.50.0/mapbox-gl.js"></script>
+		<link href="https://api.tiles.mapbox.com/mapbox-gl-js/v0.50.0/mapbox-gl.css" rel="stylesheet">
+</head>
+	<body>
+		
+	<!-- Mapbox-->
+<div>
+	<h2 style="text-align: center;">Jackson MS Floods</h2>
+	<div id="map" style='width: 100vw; height: 100vh';></div>
+
+	<script>
+		mapboxgl.accessToken = 'pk.eyJ1IjoiYmhhdHRiMiIsImEiOiJjam82azdmNjIwYjk3M2tvYThuNzQxMXM0In0.-DsIcDsDaHJkJoCqDnTnhg';
+		var map = new mapboxgl.Map({
+			    container: 'map',
+			    style: 'mapbox://styles/bhattb2/cjp903wxt7igt2rjubu11jdlh', 
+			 // stylesheet location',
+			});
+			//set the center & zoom of the map
+			map.setCenter([-90.1848, 32.2988]);
+			map.setZoom(11);
+			
+			map.on('load', function(){
+				//add a source layer for earthquakes
+				map.addSource("JacksonBG", {
+			        "type": "geojson",
+			        "data": "https://raw.githubusercontent.com/Bhattb2/Bhattb2.github.io/master/assets/data/jackson_bg_Clip3.json"
+			    });
+			    map.addLayer({
+			    	"id":"JacksonBlockGroups",
+			    	"type":"fill",
+			    	"source":"JacksonBG",
+			    	"paint": {
+			    		'fill-color': [
+						'interpolate',
+						['linear'],
+						['get', 'Pop'],
+						0, '#F2F12D',
+						500, '#EED322',
+						750, '#E6B71E',
+						1000, '#DA9C20',
+						2500, '#CA8323',
+						5000, '#B86B25',
+						],
+			    		"fill-opacity": 0.8,
+			    		"fill-outline-color": "gray",
+
+			    	}
+			    });
+
+			    map.addSource("JacksonWB", {
+			        "type": "geojson",
+			        "data": "https://raw.githubusercontent.com/Bhattb2/Bhattb2.github.io/master/assets/data/jackson_Waterbody.json"
+			    });
+			    map.addLayer({
+			    	"id":"JacksonWater",
+			    	"type":"fill",
+			    	"source":"JacksonWB",
+			    	"paint": {
+			    		'fill-color': "blue",
+			    		"fill-opacity": 0.8,
+			    		"fill-outline-color": "gray",
+
+			    	}
+			    });
+
+			    map.setCenter([-90.1848, 32.2988]);
+			    map.setZoom(11);
+
+			});	
+	</script>
+	<p>(<b><font color='#ef8113'>Historic landfills - Vermont</font></b>)
+		<br><font color='#ad5905'>
+		The above map displays geo-located active landfills which are currently accepting waste; geo-located closed landfills that have ceased accepting waste and completed closure under solid waste regulations (post-1988); historic landfills - ceased accepting waste prior to solid waste regulation implementation (pre-1988), locations obtained from a 1990 Vermont Groundwater Pollution Source Inventory completed by the Department of Waster Resources and Environmental Engineering Groundwater Management Section. The listing of historic landfills is likely incomplete.</font></br>
+		</font></br>
+		
+	</p>
+</section>
+</section>
+</body> 
