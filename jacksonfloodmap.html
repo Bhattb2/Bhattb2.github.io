@@ -51,30 +51,61 @@
 				"fill-opacity": 0.35,
 				"fill-outline-color":"gray"
 			}
-  		});
-
+		});
+		map.addSource("Jackflood", {
+			"type": "geojson",
+			"data": "https://raw.githubusercontent.com/Bhattb2/Bhattb2.github.io/master/assets/data/JaxFlood.json"
+		});
+		map.addLayer({
+			"id": "Floodplain",
+			"type": "fill",
+			"source": "Jackflood",
+			"paint": {"fill-color": "red",
+		  "fill-opacity": 0.15}
+		});
 		//Jackson School Stuff
 		map.addSource("JacksonSCH", {
 			"type": "geojson",
 			"data": "https://raw.githubusercontent.com/Bhattb2/Bhattb2.github.io/master/assets/data/schjsontest.json"
 		});
-
 		map.addLayer({
 			"id":"JacksonBlockSCH",
 			"type":"circle",
 			"source":"JacksonSCH",
 			"paint":{
-			"circle-color":"Silver",
-			"circle-radius": 3,
-		  }
-			});
+				"circle-color":"Silver",
+				"circle-radius": 3,
+			}
+		});
+		//add handler for click/popups
+		//Thank you:http://www.mapbos.com/mapbox-gl-js/example/popup-on-click/
+		map.on("click", "JacksonBlockSCH", function (e) {
+			map.getCanvas().style.cursor = "pointer";
+			var coordinates = e.features[0].geometry.coordinates.slice();
+			var description = "<p>"+e.features[0].properties.NAME+"</p>"
+			// Ensure that if the map is zoomed out such that mutiple
+			while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+				coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+			}
+			//make popups
+			new mapboxgl.Popup()
+			.setLngLat(coordinates)
+			.setHTML(description)
+			.addTo(map);
+		});
+		// change cursor
+		map.on("mouseenter", "JacksonBlockSCH", function () {
+			map.getCanvas().style.cursor = "pointer";
+		});
+		map.on("mouseleave", "JacksonBlockSCH", function () {
+			map.getCanvas().style.cursor = "";
+		});
 
 		//Jackson PD stuff
 		map.addSource("Jacksonpd", {
 			"type": "geojson",
 			"data": "https://raw.githubusercontent.com/Bhattb2/Bhattb2.github.io/master/assets/data/JacksonPD.json"
 		});
-
 		map.addLayer({
 			"id":"Jacksonpd",
 			"type":"circle",
@@ -83,31 +114,64 @@
 				"circle-color":"Blue",
 				"circle-radius": 3,
 			}
-			});
+		});
+		map.on("click", "Jacksonpd", function (e) {
+			map.getCanvas().style.cursor = "pointer";
+			var coordinates = e.features[0].geometry.coordinates.slice();
+			var description = "<p>"+e.features[0].properties.NAME+"</p>"
+			while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+				coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+			}
+			new mapboxgl.Popup()
+			.setLngLat(coordinates)
+			.setHTML(description)
+			.addTo(map);
+		});
+		map.on("mouseenter", "Jacksonpd", function () {
+			map.getCanvas().style.cursor = "pointer";
+		});
+		map.on("mouseleave", "Jacksonpd", function () {
+			map.getCanvas().style.cursor = "";
+		});
 
-			//Jackson HOSP stuff
-			map.addSource("Jacksonhosp", {
-				"type": "geojson",
-				"data": "https://raw.githubusercontent.com/Bhattb2/Bhattb2.github.io/master/assets/data/hospitals.json"
-			});
-
-			map.addLayer({
-				"id":"Jacksonhosp",
-				"type":"circle",
-				"source":"Jacksonhosp",
-
-				"paint":{
-					"circle-color":"Maroon",
-					"circle-radius": 3,
-				}
-			  }),
+		//Jackson HOSP stuff
+		map.addSource("Jacksonhosp", {
+			"type": "geojson",
+			"data": "https://raw.githubusercontent.com/Bhattb2/Bhattb2.github.io/master/assets/data/hospitals.json"
+		});
+		map.addLayer({
+			"id":"Jacksonhosp",
+			"type":"circle",
+			"source":"Jacksonhosp",
+			"paint":{
+				"circle-color":"Maroon",
+				"circle-radius": 3,
+			}
+		});
+		map.on("click", "Jacksonhosp", function (e) {
+			map.getCanvas().style.cursor = "pointer";
+			var coordinates = e.features[0].geometry.coordinates.slice();
+			var description = "<p>"+e.features[0].properties.NAME+"</p>"
+			while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+				coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+			}
+			new mapboxgl.Popup()
+			.setLngLat(coordinates)
+			.setHTML(description)
+			.addTo(map);
+		});
+		map.on("mouseenter", "Jacksonhosp", function () {
+			map.getCanvas().style.cursor = "pointer";
+		});
+		map.on("mouseleave", "Jacksonhosp", function () {
+			map.getCanvas().style.cursor = "";
+		});
 
 		//Jackson Fire Sttions
 		map.addSource("JacksonFire", {
 			"type": "geojson",
 			"data": "https://raw.githubusercontent.com/Bhattb2/Bhattb2.github.io/master/assets/data/Jacksonfire.json"
 		});
-
 		map.addLayer({
 			"id":"JacksonFire",
 			"type":"circle",
@@ -117,11 +181,28 @@
 				"circle-color":"Red",
 				"circle-radius": 3,
 			}
-  		}),
+		});
+		map.on("click", "JacksonFire", function (e) {
+			map.getCanvas().style.cursor = "pointer";
+			var coordinates = e.features[0].geometry.coordinates.slice();
+			var description = "<p>"+e.features[0].properties.NAME+"</p>"
+			while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+				coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+			}
+			new mapboxgl.Popup()
+			.setLngLat(coordinates)
+			.setHTML(description)
+			.addTo(map);
+		});
+		map.on("mouseenter", "JacksonFire", function () {
+			map.getCanvas().style.cursor = "pointer";
+		});
+		map.on("mouseleave", "JacksonFire", function () {
+			map.getCanvas().style.cursor = "";
+		});
 
 		map.setCenter([-90.1848, 32.2988]);
 		map.setZoom(11);
-
 	});
 	</script>
 </section>
