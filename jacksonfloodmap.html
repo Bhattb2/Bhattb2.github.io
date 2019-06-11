@@ -29,7 +29,7 @@
 
 	map.on("load", function(){
 		//add a source layer
-		map.addSource("JacksonBG", {
+		/*map.addSource("JacksonBG", {
 			"type": "geojson",
 			"data": "https://raw.githubusercontent.com/Bhattb2/Bhattb2.github.io/master/assets/data/jackson_bg_Clip3.json"
 		});
@@ -51,17 +51,18 @@
 				"fill-opacity": 0.35,
 				"fill-outline-color":"gray"
 			}
-		});
+		});*/
 		map.addSource("Jackflood", {
 			"type": "geojson",
-			"data": "https://raw.githubusercontent.com/Bhattb2/Bhattb2.github.io/master/assets/data/JaxFlood.json"
+			"data": "https://raw.githubusercontent.com/Bhattb2/Bhattb2.github.io/master/assets/data/Jackson500.json"
 		});
 		map.addLayer({
 			"id": "Floodplain",
 			"type": "fill",
 			"source": "Jackflood",
 			"paint": {"fill-color": "red",
-		  "fill-opacity": 0.15}
+		  "fill-opacity": 0.20,
+	}
 		});
 		//Jackson School Stuff
 		map.addSource("JacksonSCH", {

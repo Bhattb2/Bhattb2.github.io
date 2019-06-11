@@ -4,80 +4,36 @@
 			<script src="https://api.tiles.mapbox.com/mapbox-gl-js/v0.50.0/mapbox-gl.js"></script>
 			<link href="https://api.tiles.mapbox.com/mapbox-gl-js/v0.50.0/mapbox-gl.css" rel="stylesheet">
 	</head>
+	<style>
+</style>
 		<body>
-			
+
 		<!-- Mapbox-->
-	<div>
-		<h2 style="text-align: center;">Jackson MS Floods</h2>
-		<div id="map" style='width: 100vw; height: 100vh';></div>
-
-		<script>
-			mapboxgl.accessToken = 'pk.eyJ1IjoiYmhhdHRiMiIsImEiOiJjam82azdmNjIwYjk3M2tvYThuNzQxMXM0In0.-DsIcDsDaHJkJoCqDnTnhg';
-			var map = new mapboxgl.Map({
-				    container: 'map',
-				    style: 'mapbox://styles/bhattb2/cjp903wxt7igt2rjubu11jdlh', 
-				 // stylesheet location',
-				});
-				//set the center & zoom of the map
-				map.setCenter([-90.1848, 32.2988]);
-				map.setZoom(11);
-				
-				map.on('load', function(){
-					//add a source layer
-					map.addSource("JacksonBG", {
-				        "type": "geojson",
-				        "data": "https://raw.githubusercontent.com/Bhattb2/Bhattb2.github.io/master/assets/data/jackson_bg_Clip3.json"
-				    });
-				    map.addLayer({
-				    	"id":"JacksonBlockGroups",
-				    	"type":"fill",
-				    	"source":"JacksonBG",
-				    	"paint": {
-				    		'fill-color':{
-				    		'property': 'pop_Pop',
-				    		'stops': [
-				    		[0, 'red'],
-				    		[250, 'blue'],
-				    		[500, "white"],
-				    		[1000, 'green'],
-				    		[1500, 'teal'],
-				    		[2000, 'silver'],
-				    		[2500, 'yellow']
-				    		]
-				    	},
-
-				    		"fill-opacity": 0.8
-				    	}				    					    	
-				    					  
-				    });
-
-				    map.addSource("JacksonWB", {
-				        "type": "geojson",
-				        "data": "https://raw.githubusercontent.com/Bhattb2/Bhattb2.github.io/master/assets/data/jackson_Waterbody.json"
-				    });
-				    map.addLayer({
-				    	"id":"JacksonWater",
-				    	"type":"fill",
-				    	"source":"JacksonWB",
-				    	"paint": {
-				    		'fill-color': "blue",
-				    		"fill-opacity": 0.8,
-				    		"fill-outline-color": "gray",
-
-				    	}
-				    });
-
-				    map.setCenter([-90.1848, 32.2988]);
-				    map.setZoom(11);
-
-				});	
-		</script>
-		<p>(<b><font color='#ef8113'>Historic landfills - Vermont</font></b>)
-			<br><font color='#ad5905'>
-			The above map displays geo-located active landfills which are currently accepting waste; geo-located closed landfills that have ceased accepting waste and completed closure under solid waste regulations (post-1988); historic landfills - ceased accepting waste prior to solid waste regulation implementation (pre-1988), locations obtained from a 1990 Vermont Groundwater Pollution Source Inventory completed by the Department of Waster Resources and Environmental Engineering Groundwater Management Section. The listing of historic landfills is likely incomplete.</font></br>
-			</font></br>
-			
-		</p>
-	</section>
-	</section>
-	</body> 
+<div align='center'>
+		<h1> Jackson, MS Floodplains</h1>
+		<p align="left">This 500 year flood plain (outlined in red) map of Jackson, Mississippi shows where the vulnerable critical infrastructres such as the <font color="red">fire stations</font>, <font color="blue">police stations</font>, <font color="maroon">hospitals</font>, and <font color="silver">schools</font> are located.
+		<br>
+		<br>
+		<b>500-year floods and Infrastructure</b>
+		<br>
+       According to FEMA a 500-year flood is an event that has a 1 in 500 chance of occurring in any given year. For a 500-year flood, there is a 0.2 percent chance of having a flood of that magnitude occurring in any given year. In 1979, the Pearl River flooded the fairgrounds and Coliseum as well as parts of downtown. Flooding on the Pearl River can also cause water levels on creeks that feed into the Pearl River to rise. Tributaries— creeks that run off the river—create flooding risks for residents. Some of these creeks put structures in downtown Jackson, in the 500 and 100-year floodplains. Flooding can occur with very little warning and can cause an enormous amount of damage, ranging from flooded streets and eroded embankments to flooded homes and even death. Due to the vulnerability, the Federal Emergency Management Agency (FEMA) has designated portions of the city as Special Flood Hazard Areas (SFHA). In the aftermath of Harvey, experts determined that heavy rainfall resulted in a 500-year flood event in some areas. With this type extreme flooding, critical infrastructure, such as fire/police stations, schools, and hospitals need to be prepared for more frequent occurrences of extreme flooding.
+    <br>
+		<br>
+    <b>Flood Hazards and Vulnerabilities</b>
+		<br>
+Low-lying areas in the city of Jackson are susceptible to flooding from the Pearl River as well as a number of creeks that flow through the city. The exposure of populations with high social vulnerability is low in Jackson. However, it would not require major storms to cause extensive economic damage and suffering in the future. Having knowledge of the vulnerabilities can aid in planning for the foreseeable floods. Stronger future storms are certain, however the extent of havoc and flood damage is unpredictable. How well these communities are prepared could determine the level of damage.
+    <br>
+		<br>
+    <b>Community Preparedness</b>
+		<br>
+Knowing whether you are in a 100 or 500 year floodplain is the best way to be prepared. As a public service, the City of Jackson Engineering Division provides information regarding whether property located within the City of Jackson is located in special flood hazard areas. Additionally, community outreach programs to provide information for high risk areas such evacuation routes, the risk of flooding, and shelter areas. First Responders (fire and police departments, ambulances, etc.) should have alternate routes planned. Medical facilities should have back-up generators for power source, as well as a coordinated plan with other facilities.
+<br>
+See links under the map for additional emergency evacuation and preparedness information.
+</p>
+		<iframe src='jacksonfloodmap.html' style='width: 60vw;height: 90vh;background-color: white;'></iframe>
+		<p><a target="_blank" href="http://www.hindscountyms.com/departments/emergency-management">Hinds County Flood Management</a>
+		<br>
+		<a target="blank" href="https://www.ready.gov/floods">FEMA</a>
+	</p>
+</div>
+	</body>
